@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NET.fa | وضعیت اینترنت و دیتاسنترهای ایران</title>
+<meta name="description" content="پایش متنی وضعیت اینترنت و دیتاسنترهای ایران از خبرگزاری‌های رسمی؛ بدون داده ساختگی.">
+<meta name="theme-color" content="#100b08">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css">
+
+<style>
+:root{
+  --bg:#100b08;
+  --bg-2:#1a120d;
+  --line:rgba(255,255,255,.085);
+  --text:#f4ede6;
+  --muted:#a69a8e;
+  --dim:#75695d;
+  --orange:#f58a3d;
+  --orange-2:#c75a1c;
+  --green:#52e3a4;
+  --red:#ff6a6a;
+  --r-lg:26px;
+  --r-md:18px;
+  --r-sm:12px;
+  --font:"Vazirmatn", Tahoma, "Segoe UI", system-ui, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  color:var(--text);
+  background:
+    radial-gradient(900px 520px at 88% -8%, rgba(176,98,46,.34), transparent 62%),
+    radial-gradient(700px 480px at 4% 108%, rgba(120,62,28,.28), transparent 60%),
+    var(--bg);
+  background-attachment:fixed;
+  min-height:100dvh;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:10px}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- عبارت بالای صفحه ---------- */
+.bismillah{display:flex;align-items:center;justify-content:center;gap:16px;color:#f2c9a2}
+.bismillah .bs-text{font-weight:300;font-size:clamp(1.05rem,2.2vw,1.35rem);letter-spacing:.02em;white-space:nowrap}
+.orn{height:1px;width:clamp(36px,12vw,150px);background:linear-gradient(90deg,transparent,rgba(245,138,61,.75))}
+.orn:last-child{transform:scaleX(-1)}
+
+/* ---------- چیدمان اصلی ---------- */
+.app{max-width:1380px;margin:0 auto;padding:18px;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;min-height:100dvh}
+.rail{
+  position:sticky;top:18px;height:calc(100dvh - 36px);
+  display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 0;
+  border-radius:var(--r-lg);border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+}
+.rail .logo{width:38px;height:38px;margin-bottom:14px}
+.rail .spacer{flex:1}
+.rbtn{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:var(--muted);transition:background .2s,color .2s}
+.rbtn:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.rbtn[aria-pressed="true"]{background:linear-gradient(160deg,var(--orange),var(--orange-2));color:#fff;box-shadow:0 8px 22px -8px rgba(245,138,61,.8)}
+
+.main{display:grid;gap:18px;align-content:start;min-width:0}
+.top{display:grid;gap:14px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:12px 18px;border-radius:var(--r-lg);border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{width:34px;height:34px}
+.brand b{font-size:1.35rem;font-weight:800;letter-spacing:.04em}
+.brand b i{font-style:normal;color:var(--orange)}
+.brand small{display:block;color:var(--muted);font-size:.78rem;line-height:1.4}
+.bar-end{display:flex;align-items:center;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;font-size:.84rem;background:rgba(255,255,255,.06);color:var(--muted)}
+.pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 4px color-mix(in srgb,currentColor 18%,transparent)}
+.pill[data-s="ok"]{color:var(--green)}
+.pill[data-s="err"]{color:var(--red)}
+.ibtn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.06);color:var(--muted);transition:background .2s,color .2s}
+.ibtn:hover{background:rgba(255,255,255,.11);color:var(--text)}
+body.busy .spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(-360deg)}}
+
+.stage{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(0,1fr);gap:18px;align-items:start}
+.col{display:grid;gap:18px;min-width:0}
+.card{position:relative;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--line);padding:24px;
+  background:linear-gradient(165deg,rgba(255,255,255,.065),rgba(255,255,255,.02))}
+.card h3{font-size:1.02rem;font-weight:600;margin-bottom:14px}
+
+/* ---------- کارت اصلی: آخرین گزارش ---------- */
+.hero{padding:30px;background:
+  radial-gradient(520px 260px at 100% 0%, rgba(245,138,61,.22), transparent 70%),
+  linear-gradient(165deg,rgba(120,72,44,.38),rgba(34,22,16,.7))}
+.hero-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;color:var(--muted);font-size:.88rem}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:4px 13px;border-radius:99px;font-size:.82rem;font-weight:600;
+  color:var(--c);background:color-mix(in srgb,var(--c) 15%,transparent)}
+[data-cat="Internet"]{--c:var(--orange)}
+[data-cat="CyberAttack"]{--c:var(--red)}
+[data-cat="DataCenter"]{--c:var(--green)}
+.hero h2{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:700;line-height:1.75;max-width:34ch}
+.hero p{margin-top:14px;color:#d8cdc2;max-width:62ch;font-size:1.02rem}
+.hero-foot{margin-top:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hero-foot .src{color:var(--muted);font-size:.92rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 24px;border-radius:14px;font-weight:600;text-decoration:none;transition:transform .15s,background .2s}
+.btn:active{transform:scale(.97)}
+.btn.light{background:#fff;color:#1b120d}
+.btn.light:hover{background:#ffe9d6}
+.btn.ghost{background:rgba(255,255,255,.08)}
+.btn.ghost:hover{background:rgba(255,255,255,.14)}
+
+/* ---------- فهرست گزارش‌ها ---------- */
+.list{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px;border-radius:var(--r-md);
+  background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.05);text-decoration:none;transition:background .2s,border-color .2s}
+a.row:hover{background:rgba(255,255,255,.06);border-color:var(--line)}
+.tile{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.row h4{font-size:.98rem;font-weight:600;line-height:1.7;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.row .meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.82rem}
+.empty-note{color:var(--muted);font-size:.94rem}
+
+/* ---------- ستون کناری ---------- */
+.promo{background:linear-gradient(155deg,#f79a52 0%,#d9631f 55%,#8e3e12 100%);border-color:rgba(255,255,255,.18);color:#fff;padding:26px}
+.promo::after{content:"";position:absolute;inset-inline-start:-70px;bottom:-90px;width:230px;height:230px;border-radius:50%;
+  box-shadow:0 0 0 28px rgba(255,255,255,.07),0 0 0 62px rgba(255,255,255,.05),0 0 0 100px rgba(255,255,255,.035);pointer-events:none}
+.promo h3{font-size:1.3rem;font-weight:700;line-height:1.6;margin-bottom:8px}
+.promo p{font-size:.93rem;color:rgba(255,255,255,.88);max-width:30ch;margin-bottom:18px;position:relative;z-index:1}
+.promo .btn{position:relative;z-index:1;width:100%}
+.src-list{display:grid;gap:4px}
+.src-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:12px;font-size:.92rem}
+.src-row:nth-child(odd){background:rgba(0,0,0,.18)}
+.src-row .l{display:flex;align-items:center;gap:10px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--dim);flex:none}
+.dot[data-s="ok"]{background:var(--green);box-shadow:0 0 10px rgba(82,227,164,.6)}
+.dot[data-s="err"]{background:var(--red)}
+.src-row small{color:var(--muted);font-size:.78rem}
+.kw{display:flex;flex-wrap:wrap;gap:8px}
+.kw span{padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.06);color:#d8cdc2;font-size:.82rem}
+.note{margin-top:14px;color:var(--dim);font-size:.8rem;line-height:1.9}
+
+/* ---------- لودینگ ---------- */
+#loader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden}
+#loader .half{position:absolute;inset-inline:0;height:50.5%;background:
+  radial-gradient(700px 420px at 50% 50%, rgba(176,98,46,.30), transparent 70%),#0d0907;
+  transition:transform 1s cubic-bezier(.77,0,.18,1) .15s}
+#loader .half.t{top:0}
+#loader .half.b{bottom:0}
+.ld-top{position:absolute;top:max(34px,env(safe-area-inset-top));inset-inline:0;z-index:2;opacity:0;animation:fadeUp 1.2s .2s forwards}
+.ld-center{position:relative;z-index:2;display:grid;justify-items:center;gap:6px;padding:20px;transition:opacity .45s,transform .6s}
+.radar{width:min(66vw,250px);aspect-ratio:1;filter:drop-shadow(0 0 28px rgba(245,138,61,.28))}
+.radar svg{width:100%;height:100%;overflow:visible}
+.sweep{transform-origin:120px 120px;animation:spin2 3.2s linear infinite}
+.ping{transform-origin:120px 120px;transform-box:view-box;animation:ping 3.2s ease-out infinite;opacity:0}
+.ping.p2{animation-delay:1.6s}
+.node{fill:#ffb26e;opacity:.18;transform-box:fill-box;transform-origin:center;animation:hit 3.2s linear infinite}
+@keyframes spin2{to{transform:rotate(360deg)}}
+@keyframes ping{0%{transform:scale(.25);opacity:.75}100%{transform:scale(1);opacity:0}}
+@keyframes hit{0%{opacity:1;transform:scale(1.9)}35%{opacity:.4;transform:scale(1)}100%{opacity:.18;transform:scale(1)}}
+.ld-brand{display:flex;direction:ltr;font-size:clamp(2.4rem,9vw,3.6rem);font-weight:800;letter-spacing:.06em;line-height:1.2;margin-top:8px}
+.ld-brand span{display:inline-block;opacity:0;transform:translateY(16px);animation:rise .7s cubic-bezier(.2,.8,.2,1) forwards}
+.ld-brand span:nth-child(1){animation-delay:.35s}.ld-brand span:nth-child(2){animation-delay:.45s}.ld-brand span:nth-child(3){animation-delay:.55s}
+.ld-brand span:nth-child(4){animation-delay:.65s;color:var(--orange)}.ld-brand span:nth-child(5){animation-delay:.75s}.ld-brand span:nth-child(6){animation-delay:.85s}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.ld-msg{min-height:1.8em;color:var(--muted);font-size:.95rem;margin-top:6px;text-align:center}
+.ld-bar{width:min(70vw,260px);height:4px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:10px}
+.ld-bar i{display:block;height:100%;width:100%;border-radius:4px;background:linear-gradient(90deg,var(--orange-2),var(--orange),#ffd0a0);transform-origin:right;transform:scaleX(.06);transition:transform .35s ease-out}
+.ld-foot{position:absolute;bottom:max(30px,env(safe-area-inset-bottom));inset-inline:0;text-align:center;color:var(--dim);font-size:.82rem;z-index:2;padding:0 16px}
+#loader.done .ld-center,#loader.done .ld-top,#loader.done .ld-foot{opacity:0;transform:scale(.94);transition:opacity .4s,transform .5s}
+#loader.done .half.t{transform:translateY(-101%)}
+#loader.done .half.b{transform:translateY(101%)}
+#loader.gone{pointer-events:none}
+
+/* ---------- موبایل و تبلت ---------- */
+@media (max-width:980px){
+  .app{grid-template-columns:minmax(0,1fr);padding:12px 12px 100px}
+  .stage{grid-template-columns:minmax(0,1fr)}
+  .rail{position:fixed;inset-inline:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom));height:auto;z-index:30;flex-direction:row;justify-content:space-around;padding:8px;
+    background:rgba(26,18,13,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .rail .logo,.rail .spacer{display:none}
+  .hero{padding:22px}
+  .card{padding:20px}
+  .row{grid-template-columns:44px minmax(0,1fr)}
+  .row .chip{grid-column:2;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .ld-top,.ld-brand span{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="busy">
+
+<!-- آیکون‌ها و لوگو -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gO" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb26e"/><stop offset="1" stop-color="#d9631f"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="0 0 24 24">
+    <path d="M12 2.2l8.4 4.85v9.9L12 21.8l-8.4-4.85v-9.9z" fill="none" stroke="url(#gO)" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M12 8.2l-3.6 6.4h7.2z" fill="none" stroke="url(#gO)" stroke-width="1.2" stroke-linejoin="round"/>
+    <circle cx="12" cy="8.2" r="1.7" fill="url(#gO)"/><circle cx="8.4" cy="14.6" r="1.7" fill="url(#gO)"/><circle cx="15.6" cy="14.6" r="1.7" fill="url(#gO)"/>
+  </symbol>
+  <symbol id="i-all" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.8 12.6a9.4 9.4 0 0 1 12.4 0M9 16.1a4.8 4.8 0 0 1 6 0"/><circle cx="12" cy="19.6" r=".9"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.1 8-7.5 9.5-4.4-1.5-7.5-4.9-7.5-9.5V6z"/><path d="M12 8.5v4M12 16h.01"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></symbol>
+</svg>
+
+<!-- صفحه لودینگ -->
+<div id="loader" role="status" aria-live="polite">
+  <div class="half t"></div><div class="half b"></div>
+  <div class="ld-top"><div class="bismillah"><span class="orn"></span><span class="bs-text">به نام پروردگار</span><span class="orn"></span></div></div>
+  <div class="ld-center">
+    <div class="radar" aria-hidden="true">
+      <svg viewBox="0 0 240 240">
+        <defs>
+          <linearGradient id="gSweep" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#f58a3d" stop-opacity=".55"/><stop offset="1" stop-color="#f58a3d" stop-opacity="0"/></linearGradient>
+        </defs>
+        <g fill="none" stroke="#f58a3d" stroke-opacity=".22" stroke-width="1">
+          <circle cx="120" cy="120" r="30"/><circle cx="120" cy="120" r="55"/><circle cx="120" cy="120" r="80"/><circle cx="120" cy="120" r="105"/>
+          <path d="M120 15v210M15 120h210" stroke-opacity=".1"/>
+        </g>
+        <circle class="ping" cx="120" cy="120" r="105" fill="none" stroke="#f58a3d" stroke-width="1.5"/>
+        <circle class="ping p2" cx="120" cy="120" r="105" fill="none" stroke="#f58a3d" stroke-width="1.5"/>
+        <g class="sweep"><path d="M120 120L225 120A105 105 0 0 0 200.4 52.5Z" fill="url(#gSweep)"/><path d="M120 120H225" stroke="#ffb26e" stroke-width="1.4"/></g>
+        <circle class="node" cx="167.6" cy="147.5" r="3.4" style="animation-delay:.27s"/>
+        <circle class="node" cx="113" cy="199.7" r="3.4" style="animation-delay:.84s"/>
+        <circle class="node" cx="21.3" cy="155.9" r="3.4" style="animation-delay:1.42s"/>
+        <circle class="node" cx="81.1" cy="81.1" r="3.4" style="animation-delay:2s"/>
+        <circle class="node" cx="160" cy="50.7" r="3.4" style="animation-delay:2.67s"/>
+        <circle cx="120" cy="120" r="30" fill="#140d09" stroke="#f58a3d" stroke-opacity=".5"/>
+        <svg x="96" y="96" width="48" height="48" viewBox="0 0 24 24"><use href="#logo"/></svg>
+      </svg>
+    </div>
+    <h1 class="ld-brand" aria-label="NET.fa"><span>N</span><span>E</span><span>T</span><span>.</span><span>f</span><span>a</span></h1>
+    <p class="ld-msg" id="ldMsg">در حال اتصال به منابع خبری…</p>
+    <div class="ld-bar"><i id="ldFill"></i></div>
+  </div>
+  <div class="ld-foot">پایش متنی وضعیت اینترنت و دیتاسنترهای ایران</div>
+</div>
+
+<div class="app">
+  <nav class="rail" aria-label="دسته‌بندی گزارش‌ها">
+    <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo"/></svg>
+    <button class="rbtn" data-filter="all" aria-pressed="true" title="همه گزارش‌ها"><svg class="ic"><use href="#i-all"/></svg><span class="sr">همه گزارش‌ها</span></button>
+    <button class="rbtn" data-filter="Internet" aria-pressed="false" title="اینترنت"><svg class="ic"><use href="#i-wifi"/></svg><span class="sr">اینترنت</span></button>
+    <button class="rbtn" data-filter="CyberAttack" aria-pressed="false" title="حمله سایبری"><svg class="ic"><use href="#i-shield"/></svg><span class="sr">حمله سایبری</span></button>
+    <button class="rbtn" data-filter="DataCenter" aria-pressed="false" title="دیتاسنتر"><svg class="ic"><use href="#i-server"/></svg><span class="sr">دیتاسنتر</span></button>
+    <span class="spacer"></span>
+  </nav>
+
+  <main class="main">
+    <header class="top">
+      <div class="bismillah"><span class="orn"></span><span class="bs-text">به نام پروردگار</span><span class="orn"></span></div>
+      <div class="bar">
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo"/></svg>
+          <div><b dir="ltr">NET<i>.</i>fa</b><small id="updated">در انتظار نخستین بررسی</small></div>
+        </div>
+        <div class="bar-end">
+          <span class="pill" id="pill" data-s="load">در حال بررسی</span>
+          <button class="ibtn" id="refreshTop" title="بازخوانی" aria-label="بازخوانی"><svg class="ic spin"><use href="#i-refresh"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <div class="stage">
+      <div class="col">
+        <section class="card hero" id="hero" aria-live="polite" aria-label="آخرین گزارش"></section>
+        <section class="card" id="listCard" aria-label="گزارش‌های اخیر">
+          <h3>گزارش‌های اخیر</h3>
+          <div class="list" id="list"></div>
+        </section>
+      </div>
+
+      <aside class="col">
+        <section class="card promo">
+          <h3>فقط خبر واقعی</h3>
+          <p>هر گزارش مستقیم از فید خبرگزاری‌ها می‌آید. اگر خبری پیدا نشود، چیزی ساخته نمی‌شود.</p>
+          <button class="btn light" id="refreshPromo">بازخوانی اخبار</button>
+        </section>
+        <section class="card">
+          <h3>منابع خبری</h3>
+          <div class="src-list" id="sources"><p class="empty-note">در انتظار پاسخ سرور…</p></div>
+        </section>
+        <section class="card">
+          <h3>کلیدواژه‌های پایش</h3>
+          <div class="kw">
+            <span>اختلال اینترنت</span><span>قطعی اینترنت</span><span>حمله سایبری</span><span>DDoS</span><span>افت کیفیت</span><span>دیتاسنتر</span>
+          </div>
+          <p class="note">این صفحه فقط عنوان و چکیده‌ی خبرها را نشان می‌دهد. برای متن کامل و صحت خبر، همیشه به لینک منبع مراجعه کنید.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+/* ================================================================
+   ⚙️ تنها تنظیمی که باید عوض کنی: آدرس بک‌اند خودت
+   مثال: 'https://netfa-api.onrender.com'
+   ================================================================ */
+const API_BASE = 'https://YOUR-API-URL.onrender.com';
+
+const REFRESH_MS = 5 * 60 * 1000;
+const MIN_LOADER_MS = 2800;
+const SVGNS = 'http://www.w3.org/2000/svg';
+const CATS = {
+  Internet:    { label: 'اینترنت',     icon: 'i-wifi' },
+  CyberAttack: { label: 'حمله سایبری', icon: 'i-shield' },
+  DataCenter:  { label: 'دیتاسنتر',    icon: 'i-server' },
+};
+
+const $ = (s) => document.querySelector(s);
+const faNum = (n) => Number(n).toLocaleString('fa-IR');
+
+/* برای تست محلی: ?api=http://localhost:3000 (فقط localhost پذیرفته می‌شود) */
+function resolveBase() {
+  const q = new URLSearchParams(location.search).get('api');
+  if (q) {
+    try {
+      const u = new URL(q);
+      if (['localhost', '127.0.0.1'].includes(u.hostname)) return u.origin;
+    } catch { /* نادیده */ }
+  }
+  return API_BASE.replace(/\/+$/, '');
+}
+const BASE = resolveBase();
+const CONFIGURED = !/YOUR-API-URL/.test(BASE);
+
+const state = { phase: 'loading', items: [], health: null, filter: 'all', error: '', updatedAt: null, lastLoad: 0 };
+
+/* ---------- ابزارهای DOM (همیشه textContent؛ هیچ HTML خارجی تزریق نمی‌شود) ---------- */
+function h(tag, props = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v;
+    else if (k === 'dataset') Object.assign(el.dataset, v);
+    else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const kid of kids.flat()) {
+    if (kid == null || kid === false) continue;
+    el.append(kid.nodeType ? kid : document.createTextNode(kid));
+  }
+  return el;
+}
+function icon(id) {
+  const s = document.createElementNS(SVGNS, 'svg');
+  s.setAttribute('class', 'ic');
+  s.setAttribute('aria-hidden', 'true');
+  const u = document.createElementNS(SVGNS, 'use');
+  u.setAttribute('href', '#' + id);
+  s.append(u);
+  return s;
+}
+
+/* ---------- زمان ---------- */
+const rtf = new Intl.RelativeTimeFormat('fa', { numeric: 'auto' });
+const absFmt = new Intl.DateTimeFormat('fa-IR', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Tehran' });
+const clockFmt = new Intl.DateTimeFormat('fa-IR', { timeStyle: 'short', timeZone: 'Asia/Tehran' });
+function rel(date) {
+  const diff = (date.getTime() - Date.now()) / 1000;
+  const a = Math.abs(diff);
+  if (a < 60) return 'همین الان';
+  if (a < 3600) return rtf.format(Math.round(diff / 60), 'minute');
+  if (a < 86400) return rtf.format(Math.round(diff / 3600), 'hour');
+  return rtf.format(Math.round(diff / 86400), 'day');
+}
+function timeEl(date) {
+  const t = h('time', { datetime: date.toISOString(), title: absFmt.format(date) }, rel(date));
+  t.dataset.ts = String(date.getTime());
+  return t;
+}
+
+/* ---------- دریافت داده ---------- */
+async function getJson(path, timeoutMs = 65000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(BASE + path, { signal: ctrl.signal, headers: { accept: 'application/json' } });
+    let body = null;
+    try { body = await res.json(); } catch { /* بدنه JSON نبود */ }
+    if (!res.ok) throw new Error((body && body.message) || 'HTTP ' + res.status);
+    return body;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function cleanItem(x) {
+  if (!x || typeof x !== 'object' || !CATS[x.category]) return null;
+  const ts = new Date(x.timestamp);
+  if (Number.isNaN(ts.getTime())) return null;
+  return {
+    ts,
+    source: String(x.source || ''),
+    headline: String(x.headline || ''),
+    summary: String(x.summary || ''),
+    category: x.category,
+    link: typeof x.link === 'string' && /^https?:\/\//i.test(x.link) ? x.link : null,
+  };
+}
+
+async function load() {
+  document.body.classList.add('busy');
+  if (!CONFIGURED) {
+    state.phase = 'config';
+    document.body.classList.remove('busy');
+    render();
+    return;
+  }
+  try {
+    const [raw, health] = await Promise.all([getJson('/api/status'), getJson('/api/health').catch(() => null)]);
+    if (!Array.isArray(raw)) throw new Error('پاسخ سرور قابل‌فهم نبود');
+    state.items = raw.map(cleanItem).filter(Boolean).sort((a, b) => b.ts - a.ts);
+    state.health = health;
+    state.updatedAt = health && health.updatedAt ? new Date(health.updatedAt) : new Date();
+    state.phase = 'ok';
+    state.error = '';
+  } catch (err) {
+    state.phase = 'error';
+    state.error = err.name === 'AbortError'
+      ? 'پاسخی از سرور نرسید. اگر سرور رایگان است، شاید در حال بیدار شدن باشد؛ چند لحظه بعد دوباره تلاش کن.'
+      : (err.message && err.message !== 'Failed to fetch' ? err.message : 'اتصال به سرور برقرار نشد.');
+  }
+  state.lastLoad = Date.now();
+  document.body.classList.remove('busy');
+  render();
+}
+
+/* ---------- نمایش ---------- */
+function visibleItems() {
+  return state.filter === 'all' ? state.items : state.items.filter((i) => i.category === state.filter);
+}
+
+function renderPill() {
+  const pill = $('#pill');
+  const map = {
+    ok:      ['ok', 'سرویس فعال'],
+    error:   ['err', 'قطع ارتباط با سرویس'],
+    config:  ['err', 'API تنظیم نشده'],
+    loading: ['load', 'در حال بررسی'],
+  };
+  const [s, text] = map[state.phase] || map.loading;
+  pill.dataset.s = s;
+  pill.textContent = text;
+  $('#updated').textContent = state.updatedAt && state.phase === 'ok'
+    ? 'آخرین بررسی سرور ' + clockFmt.format(state.updatedAt)
+    : 'در انتظار نخستین بررسی';
+}
+
+function heroMessage(title, body, withRetry) {
+  return [
+    h('h2', {}, title),
+    h('p', {}, body),
+    withRetry ? h('div', { class: 'hero-foot' }, h('button', { class: 'btn light', type: 'button', id: 'retry' }, 'تلاش دوباره')) : null,
+  ];
+}
+
+function renderHero(items) {
+  const box = $('#hero');
+  box.replaceChildren();
+  if (state.phase === 'loading') {
+    box.append(...heroMessage('در حال دریافت آخرین گزارش‌ها…', 'چند لحظه صبر کن.', false));
+    return;
+  }
+  if (state.phase === 'config') {
+    box.append(...heroMessage('آدرس API هنوز تنظیم نشده', 'در فایل index.html مقدار API_BASE را با آدرس بک‌اند خودت جایگزین کن؛ هیچ داده‌ی نمونه‌ای نمایش داده نمی‌شود.', false));
+    return;
+  }
+  if (state.phase === 'error') {
+    box.append(...heroMessage('اتصال به سرویس برقرار نشد', state.error, true));
+    const r = $('#retry'); if (r) r.addEventListener('click', load);
+    return;
+  }
+  if (!state.items.length) {
+    box.append(...heroMessage('گزارش تازه‌ای پیدا نشد', 'در فیدهای بررسی‌شده، خبری با کلیدواژه‌های اختلال اینترنت، حمله سایبری یا دیتاسنتر دیده نشد. این به معنی سالم بودن کامل شبکه نیست؛ فقط یعنی منبع‌ها خبری با این موضوع منتشر نکرده‌اند.', false));
+    return;
+  }
+  if (!items.length) {
+    box.append(...heroMessage('در این دسته گزارشی نیست', 'از نوار کناری «همه گزارش‌ها» را بزن تا بقیه‌ی دسته‌ها را ببینی.', false));
+    return;
+  }
+  const it = items[0];
+  box.append(
+    h('div', { class: 'hero-meta' },
+      h('span', { class: 'chip', dataset: { cat: it.category } }, icon(CATS[it.category].icon), CATS[it.category].label),
+      timeEl(it.ts)),
+    h('h2', {}, it.headline),
+    it.summary ? h('p', {}, it.summary) : null,
+    h('div', { class: 'hero-foot' },
+      it.link ? h('a', { class: 'btn light', href: it.link, target: '_blank', rel: 'noopener noreferrer' }, 'خواندن در منبع') : null,
+      h('span', { class: 'src' }, it.source)));
+}
+
+function renderList(items) {
+  const list = $('#list');
+  list.replaceChildren();
+  const rest = items.slice(1);
+  $('#listCard').hidden = state.phase !== 'ok' || rest.length === 0;
+  for (const it of rest) {
+    const attrs = { class: 'row', dataset: { cat: it.category } };
+    if (it.link) Object.assign(attrs, { href: it.link, target: '_blank', rel: 'noopener noreferrer' });
+    list.append(h(it.link ? 'a' : 'div', attrs,
+      h('div', { class: 'tile' }, icon(CATS[it.category].icon)),
+      h('div', {},
+        h('h4', {}, it.headline),
+        h('div', { class: 'meta' }, h('span', {}, it.source), timeEl(it.ts))),
+      h('span', { class: 'chip', dataset: { cat: it.category } }, CATS[it.category].label)));
+  }
+}
+
+function renderSources() {
+  const box = $('#sources');
+  box.replaceChildren();
+  const list = state.health && Array.isArray(state.health.sources) ? state.health.sources : null;
+  if (!list || !list.length) {
+    box.append(h('p', { class: 'empty-note' }, state.phase === 'loading' ? 'در انتظار پاسخ سرور…' : 'وضعیت منابع در دسترس نیست.'));
+    return;
+  }
+  for (const s of list) {
+    box.append(h('div', { class: 'src-row' },
+      h('span', { class: 'l' }, h('span', { class: 'dot', dataset: { s: s.ok ? 'ok' : 'err' } }), String(s.name)),
+      h('small', {}, s.ok ? faNum(s.matched || 0) + ' گزارش منطبق' : 'پاسخ نداد')));
+  }
+}
+
+function render() {
+  const items = visibleItems();
+  renderPill();
+  renderHero(items);
+  renderList(items);
+  renderSources();
+}
+
+/* ---------- رویدادها ---------- */
+document.querySelectorAll('[data-filter]').forEach((b) => b.addEventListener('click', () => {
+  state.filter = b.dataset.filter;
+  document.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  render();
+}));
+$('#refreshTop').addEventListener('click', load);
+$('#refreshPromo').addEventListener('click', load);
+
+setInterval(() => document.querySelectorAll('time[data-ts]').forEach((t) => { t.textContent = rel(new Date(Number(t.dataset.ts))); }), 30000);
+setInterval(() => { if (!document.hidden) load(); }, REFRESH_MS);
+document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - state.lastLoad > REFRESH_MS) load(); });
+
+/* ---------- لودینگ ---------- */
+const loader = $('#loader');
+const ldMsg = $('#ldMsg');
+const ldFill = $('#ldFill');
+const t0 = performance.now();
+const steps = ['در حال اتصال به منابع خبری…', 'خواندن فیدهای خبرگزاری‌ها…', 'جست‌وجوی کلیدواژه‌های اختلال…', 'آماده‌سازی داشبورد…'];
+let si = 0, progress = 6;
+const msgTimer = setInterval(() => { si = (si + 1) % steps.length; ldMsg.textContent = steps[si]; }, 1500);
+const progTimer = setInterval(() => { progress += (90 - progress) * 0.07; ldFill.style.transform = 'scaleX(' + progress / 100 + ')'; }, 140);
+const slowTimer = setTimeout(() => { clearInterval(msgTimer); ldMsg.textContent = 'سرور رایگان در حال بیدار شدن است؛ چند لحظه صبر کن…'; }, 9000);
+
+function finishLoader() {
+  const wait = Math.max(0, MIN_LOADER_MS - (performance.now() - t0));
+  setTimeout(() => {
+    clearInterval(msgTimer); clearInterval(progTimer); clearTimeout(slowTimer);
+    ldMsg.textContent = 'آماده شد';
+    ldFill.style.transform = 'scaleX(1)';
+    setTimeout(() => {
+      loader.classList.add('done');
+      setTimeout(() => { loader.classList.add('gone'); loader.remove(); }, 1400);
+    }, 450);
+  }, wait);
+}
+
+render();
+load().then(finishLoader);
+})();
+</script>
+</body>
+</html>
